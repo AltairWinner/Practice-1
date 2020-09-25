@@ -1,10 +1,6 @@
 ﻿#include <iostream>
-using namespace std;
+#include "DynamicArray.h"
 
-void inparray(int* x, int n);
-void outarray(int* x, int n);
-void insertInPosition(int*& x, int& n, int key, int ind);
-void dell(int*& x, int& n, int key);
 
 int main()
 {
@@ -13,27 +9,27 @@ int main()
     cout << "Введите размер массива: ";
     cin >> n;
     x = new int[n];
-    inparray(x, n);
-    outarray(x, n);
+    input_array(x, n);
+    out_array(x, n);
     
     cout << "Добавление в массив" <<endl;
     insertInPosition(x, n, 100, 2);
-    outarray(x, n);
+    out_array(x, n);
 
 
     cout << "Удаление из массива" << endl;
     dell(x, n, 100);
-    outarray(x, n);
+    out_array(x, n);
 }
 
-void inparray(int* x, int n)
+void input_array(int* x, int n)
 {
     cout << "Введите " << n << " чисел" << endl;
     for (int i = 0; i < n; i++)
         cin >> x[i];
 }
 
-void outarray(int* x, int n) {
+void out_array(int* x, int n) {
     cout << "Вывод массива: \n [";
     for (int i = 0; i < n; i++)
         cout << x[i] << " ";
@@ -53,7 +49,7 @@ void insertInPosition(int*& x, int& n, int key, int ind)
     n++;
 }
 
-void dell(int* &x, int& n, int key) {
+void dell(int* &x, int& n, const int key) {
     int j = 0;
     for (int i = 0; i < n; i++) {
         x[j] = x[i];
@@ -61,5 +57,5 @@ void dell(int* &x, int& n, int key) {
     }
     n = j;
 
-    //x = (int*)realloc(x, sizeof(int) * (n));
+    x = static_cast<int*>(realloc(x, sizeof(int) * (n)));
 }

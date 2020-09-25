@@ -1,39 +1,40 @@
 ﻿#include <iostream>
 #include <ctime>
-using namespace std;
-
-const int N = 100;
-void inparray(int* x, int n);
-void outarray(int* x, int n);
-void insertInPosition(int* x, int& n, int key, int ind);
-void inprandom(int* x, int n);
-int indexKey(int* x, int n, int key);
-void dell(int* x, int& n, int ind);
-void delByKey(int* x, int& n, int key);
+#include "StaticArray.h"
 
 int main()
 {
     setlocale(LC_ALL, "rus");
 
+	//Тесты
+	//Объявляем и заполняем массив
     int x[N];
     int n;
-    cout << "Введите размер массива" << endl;
+	
+    cout << "Введите количество элементов для ввода (макс. "<< N <<")" << endl;
+    cout << "Либо введите -1 для заполнения массива случайными числами." << endl;
     cin >> n;
-    if (n <= 0 || n > N) {
-        cout << "Err" << endl;
+	
+    if (n == -1)
+    {
+        cout << "Введите количество элементов в случайном массиве (макс. " << N << ")" << endl;
+        cin >> n;
+        input_random(x, n);
+    }
+    else if (n <= 0 || n > N) {  
+        cout << "Невозможно создать массив: размер массива неверен" << endl;
         return 0;
     }
-    inparray(x, n);
-    /*
-    outarray(x, n);
+    else 
+    {
+        input_array(x, n);
+    }
+    out_array(x, n);
 
-    //inprandom(x, n);
-    outarray(x, n);
-
-    int key, index;
+    int key;
     cout << "Введите ключ для поиска: ";
     cin >> key;
-    index = indexKey(x, n, key);
+    int index = get_index_of_key(x, n, key);
     if (index != -1)
         cout << "Найденный индекс по ключу: " << index << endl;
     else
@@ -54,9 +55,9 @@ int main()
         {
             cout << "Введите ключ: ";
             cin >> key;
-            insertInPosition(x, n, key, ind);
+            insert_in_position(x, n, key, ind);
             cout << "Ключ " << key << " вставлен по индексу " << ind << endl;
-            outarray(x, n);
+            out_array(x, n);
         }
     }
 
@@ -69,28 +70,27 @@ int main()
     }
     else
     {
-        dell(x, n, ind);
+        delete_by_index(x, n, ind);
         cout << "Ключ удалён." << endl;
-        outarray(x, n);
+        out_array(x, n);
     }
-    */
+    
     //По ключу
     cout << "Введите ключ для удаления: ";
-    int key;
     cin >> key;
-    delByKey(x, n, key);
+    delete_by_key(x, n, key);
     cout << "Ключи удалены." << endl;
-    outarray(x, n);
+    out_array(x, n);
 }
 
-void inparray(int* x, int n)
+void input_array(int* x, int n)
 {
     cout << "Введите " << n << " чисел" << endl;
     for (int i = 0; i < n; i++)
         cin >> x[i];
 }
 
-void outarray(int* x, int n) {
+void out_array(int* x, int n) {
     cout << "Вывод массива: \n [";
     for (int i = 0; i < n; i++)
         cout << x[i] << " ";
@@ -99,7 +99,7 @@ void outarray(int* x, int n) {
 
 //Предусловие: массив, в котором заполнено n<N элементов
 //Постусловие: вставляет в позицию ind значение ключа key
-void insertInPosition(int* x, int& n, int key, int ind)
+void insert_in_position(int* x, int& n, const int key, const int ind)
 {
     for (int i = n; i > ind; i--) {
         x[i] = x[i - 1];
@@ -108,7 +108,7 @@ void insertInPosition(int* x, int& n, int key, int ind)
         n++;
 }
 
-void inprandom(int* x, int n) {
+void input_random(int* x, int n) {
     cout << "Заполнение массива случайными числами" << endl;
     srand(time(0));
     for (int i = 0; i < n; i++)
@@ -119,24 +119,24 @@ void inprandom(int* x, int n) {
 //Предусловие: поиск значения ключа в массиве
 //Постусловие: возвращает индекс из диапазона 0, n-1 если ключ найден
 //либо -1, если ключ не найден.
-int indexKey(int* x, int n, int key) {
+int get_index_of_key(const int* x, const int n, const int key) {
     for (int i = 0; i < n; i++) {
         if (x[i] == key) return i;
     }
     return -1;
 }
 
-//Предусловие% массив из n элементов, 0 <=ind<n
-//Постусловие: удаляет элемент в позиции ind, сохраняя поорядок следования остальных элементов.
+//Предусловие% массив из n элементов, 0 <=index<n
+//Постусловие: удаляет элемент в позиции index, сохраняя порядок следования остальных элементов.
 //Уменьшает n.
-void dell(int* x, int& n, int ind) {
-    for (int i = ind; i < n; i++) {
+void delete_by_index(int* x, int& n, const int index) {
+    for (int i = index; i < n; i++) {
         x[i] = x[i + 1];
     }
     n--;
 }
 
-void delByKey(int* x, int& n, int key) {
+void delete_by_key(int* x, int& n, const int key) {
     /*for (int i = 0; i < n; i++) {
         if (x[i] == key)
         {
