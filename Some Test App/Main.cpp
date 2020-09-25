@@ -119,7 +119,7 @@ void input_random(int* x, int n) {
 //Предусловие: поиск значения ключа в массиве
 //Постусловие: возвращает индекс из диапазона 0, n-1 если ключ найден
 //либо -1, если ключ не найден.
-int get_index_of_key(const int* x, const int n, const int key) {
+int get_index_of_key(int* x, int n, int key) {
     for (int i = 0; i < n; i++) {
         if (x[i] == key) return i;
     }
