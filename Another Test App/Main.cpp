@@ -13,7 +13,7 @@ int main()
     out_array(x, n);
     
     cout << "Добавление в массив" <<endl;
-    insertInPosition(x, n, 100, 2);
+    insert_in_position(x, n, 100, 2);
     out_array(x, n);
 
 
@@ -38,7 +38,7 @@ void out_array(int* x, int n) {
 
 //Предусловие: массив, в котором заполнено n<N элементов
 //Постусловие: вставляет в позицию ind значение ключа key
-void insertInPosition(int*& x, int& n, int key, int ind)
+void insert_in_position(int*& x, int& n, int key, int ind)
 {
     //x = (int*)realloc(x, sizeof(int) * (n + 1));
 
@@ -49,6 +49,8 @@ void insertInPosition(int*& x, int& n, int key, int ind)
     n++;
 }
 
+//Предусловие: массив длиной n и ключ для удаления key
+//Постусловие: удаляет из массива найденный ключ. Меняет размер массива в памяти. Сохраняет порядок элементов в массиве.
 void dell(int* &x, int& n, const int key) {
     int j = 0;
     for (int i = 0; i < n; i++) {
