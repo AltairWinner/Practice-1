@@ -1,63 +1,84 @@
 ﻿#include <iostream>
 #include "DynamicArray.h"
 
+using namespace std;
 
 int main()
 {
-    setlocale(LC_ALL, "rus");
-    int n, * x;
-    cout << "Введите размер массива: ";
-    cin >> n;
-    x = new int[n];
-    input_array(x, n);
-    out_array(x, n);
-    
-    cout << "Добавление в массив" <<endl;
-    insert_in_position(x, n, 100, 2);
-    out_array(x, n);
+	setlocale(LC_ALL, "rus");
+	int n, *x;
+	cout << "Введите размер массива: ";
+	cin >> n;
+	x = new int[n];
+	input_array(x, n);
+	out_array(x, n);
+	while (true)
+	{
+		int choice;
+		cout << "\nВведите номер пункта меню для продолжения" << endl;
+		cout << "0 - Выход из программы" << endl;
+		cout << "1 - Заполнение массива с клавиатуры" << endl;
+		cout << "2 - Вывод массива" << endl;
+		cout << "3 - Вставить значение в заданную позицию" << endl;
+		cout << "4 - Удалить значение из заданной позиции" << endl;
+		cout << "5 - Удалить все значения равные заданному значению, сохраняя порядок следования элементов" << endl;
+		cin >> choice;
 
+		if (choice == 0)
+			break;
 
-    cout << "Удаление из массива" << endl;
-    dell(x, n, 100);
-    out_array(x, n);
-}
-
-void input_array(int* x, int n)
-{
-    cout << "Введите " << n << " чисел" << endl;
-    for (int i = 0; i < n; i++)
-        cin >> x[i];
-}
-
-void out_array(int* x, int n) {
-    cout << "Вывод массива: \n [";
-    for (int i = 0; i < n; i++)
-        cout << x[i] << " ";
-    cout << "]" << endl;
-}
-
-//Предусловие: массив, в котором заполнено n<N элементов
-//Постусловие: вставляет в позицию ind значение ключа key
-void insert_in_position(int*& x, int& n, int key, int ind)
-{
-    //x = (int*)realloc(x, sizeof(int) * (n + 1));
-
-    for (int i = n; i > ind; i--) {
-        x[i] = x[i - 1];
-    }
-    x[ind] = key;
-    n++;
-}
-
-//Предусловие: массив длиной n и ключ для удаления key
-//Постусловие: удаляет из массива найденный ключ. Меняет размер массива в памяти. Сохраняет порядок элементов в массиве.
-void dell(int* &x, int& n, const int key) {
-    int j = 0;
-    for (int i = 0; i < n; i++) {
-        x[j] = x[i];
-        if (x[i] != key) j++;
-    }
-    n = j;
-
-    x = static_cast<int*>(realloc(x, sizeof(int) * (n)));
+		switch (choice)
+		{
+		case 1:
+			input_array(x, n);
+			break;
+		case 2:
+			out_array(x, n);
+			break;
+		case 3:
+			{
+				int key, ind;
+				cout << "Введите индекс места вставки: ";
+				cin >> ind;
+				if (ind < 0 || ind > n)
+				{
+					cout << "Индекс вне массива" << endl;
+				}
+				else
+				{
+					cout << "Введите ключ: ";
+					cin >> key;
+					insert_in_position(x, n, key, ind);
+					cout << "Ключ " << key << " вставлен по индексу " << ind << endl;
+					out_array(x, n);
+				}
+			}
+			break;
+		case 4:
+			{
+				cout << "Введите индекс для удаления ключа: ";
+				int ind;
+				cin >> ind;
+				if (ind < 0 || ind > n)
+				{
+					cout << "Индекс вне массива" << endl;
+				}
+				else
+				{
+					delete_by_index(x, n, ind);
+					cout << "Ключ удалён." << endl;
+				}
+			}
+			break;
+		case 5:
+			{
+				int key;
+				cout << "\nВведите ключ для удаления: ";
+				cin >> key;
+				delete_by_key(x, n, key);
+				cout << "Ключ удалён." << endl;
+				break;
+			}
+		}
+	}
 }
