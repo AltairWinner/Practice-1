@@ -60,6 +60,45 @@ void choice_linear_search(int* x, int n)
 	}
 }
 
+void choice_delete_by_index(int* x, int n)
+{
+	cout << "1. Сохраняя порядок следования всех остальных элементов" << endl;
+	cout << "2. Не сохраняя порядок следования всех остальных элементов" << endl;
+
+	int choice;
+	cin >> choice;
+	if (choice == 1) {
+		cout << "Введите индекс для удаления ключа: ";
+		int ind;
+		cin >> ind;
+		if (ind < 0 || ind > n)
+		{
+			cout << "Индекс вне массива" << endl;
+		}
+		else
+		{
+			delete_by_index_ordered(x, n, ind);
+			cout << "Ключ удалён." << endl;
+		}
+	}
+	else if (choice == 2)
+	{
+		cout << "Введите индекс для удаления ключа: ";
+		int ind;
+		cin >> ind;
+		if (ind < 0 || ind > n)
+		{
+			cout << "Индекс вне массива" << endl;
+		}
+		else
+		{
+			delete_by_index_unordered(x, n, ind);
+			cout << "Ключ удалён." << endl;
+		}
+	}
+	else
+		cout << "Выбран неверный вариант" << endl;
+}
 void choice_delete_by_key(int* x, int n)
 {
 	int key;
@@ -156,19 +195,7 @@ int main()
 			break;
 			//5 - удалить значение из заданной позиции
 		case 5:
-			cout << "Введите индекс для удаления ключа: ";
-			int ind;
-			cin >> ind;
-			if (ind < 0 || ind > n)
-			{
-				cout << "Индекс вне массива" << endl;
-			}
-			else
-			{
-				delete_by_index(x, n, ind);
-				cout << "Ключ удалён." << endl;
-				out_array(x, n);
-			}
+			choice_delete_by_index(x, n);
 			break;
 			//6 - Удалить все значения равные заданному значению, сохраняя порядок следования элементов
 		case 6:
@@ -249,12 +276,19 @@ int get_count_of_key(int* x, int n, int key)
 //Предусловие: массив из n элементов, 0 <=index<n
 //Постусловие: удаляет элемент в позиции index, сохраняя порядок следования остальных элементов.
 //Уменьшает n.
-void delete_by_index(int* x, int& n, const int index)
+void delete_by_index_ordered(int* x, int& n, const int index)
 {
 	for (int i = index; i < n; i++)
 	{
 		x[i] = x[i + 1];
 	}
+	n--;
+}
+
+void delete_by_index_unordered(int* x, int& n, const int index)
+{
+	x[index] = x[n-1];
+	//x[n-1] = NULL;
 	n--;
 }
 
