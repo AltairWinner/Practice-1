@@ -3,9 +3,9 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 16
 VisualStudioVersion = 16.0.30320.27
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "Some Test App", "Some Test App\Some Test App.vcxproj", "{893F561C-5446-4BA2-8692-1D527DA5E297}"
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "Some Test App", "Static Array\Static Array.vcxproj", "{893F561C-5446-4BA2-8692-1D527DA5E297}"
 EndProject
-Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "Another Test App", "Another Test App\Another Test App.vcxproj", "{C1F324FA-8F57-4519-847E-12F825D54986}"
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "Another Test App", "Dynamic Array\Dynamic Array.vcxproj", "{C1F324FA-8F57-4519-847E-12F825D54986}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
