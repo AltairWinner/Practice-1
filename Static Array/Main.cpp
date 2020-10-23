@@ -26,7 +26,7 @@ void choice_input_array(int* x, int n)
 	}
 }
 
-void choice_linear_search(int* x, int n)
+void choice_linear_search(int* x, int &n)
 {
 	cout << "\nВыберите вариант: " << endl;
 	cout << "1. Найти индекс первого вхождения заданного значения в массиве" << endl;
@@ -59,7 +59,7 @@ void choice_linear_search(int* x, int n)
 	}
 }
 
-void choice_delete_by_index(int* x, int n)
+void choice_delete_by_index(int* x, int &n)
 {
 	cout << "1. Сохраняя порядок следования всех остальных элементов" << endl;
 	cout << "2. Не сохраняя порядок следования всех остальных элементов" << endl;
@@ -98,7 +98,7 @@ void choice_delete_by_index(int* x, int n)
 	else
 		cout << "Выбран неверный вариант" << endl;
 }
-void choice_delete_by_key(int* x, int n)
+void choice_delete_by_key(int* x, int &n)
 {
 	int key;
 	cout << "\nВведите ключ для удаления: ";
